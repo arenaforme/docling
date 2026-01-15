@@ -226,6 +226,37 @@ class OcrMacOptions(OcrOptions):
     )
 
 
+class BaiduOcrApiType(str, Enum):
+    """Baidu OCR API types."""
+
+    GENERAL_BASIC = "general_basic"  # General text recognition (standard)
+    ACCURATE_BASIC = "accurate_basic"  # General text recognition (high precision)
+
+
+class BaiduOcrOptions(OcrOptions):
+    """Options for the Baidu Cloud OCR engine."""
+
+    kind: ClassVar[Literal["baidu"]] = "baidu"
+    lang: List[str] = ["CHN_ENG"]
+
+    # Authentication - supports config file or direct parameters
+    api_key: Optional[str] = None
+    secret_key: Optional[str] = None
+    config_file: Optional[str] = None  # Path to JSON config file
+
+    # API configuration
+    api_type: BaiduOcrApiType = BaiduOcrApiType.GENERAL_BASIC
+    timeout: float = 10.0
+
+    # OCR parameters
+    detect_direction: bool = False
+    confidence_threshold: float = 0.5
+
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+
+
 class PictureDescriptionBaseOptions(BaseOptions):
     batch_size: int = 8
     scale: float = 2

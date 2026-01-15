@@ -439,3 +439,8 @@ pip-selfcheck.json
 # Docs
 # docs/**/*.png
 # docs/**/*.svg
+
+# Custom deployment files (contains sensitive info)
+docs/server-deployment.md
+deploy/
+scripts/
